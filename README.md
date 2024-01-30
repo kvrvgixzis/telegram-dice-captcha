@@ -32,3 +32,7 @@ API_TOKEN=https://t.me/BotFather
 ```bash
 python3 main.py
 ```
+
+## 4. Add bot to your chat as admin
+
+## 5. Profit!!!
