@@ -1,7 +1,9 @@
+import time
 from aiogram import F, Bot, Router, types
 from aiogram.filters import IS_MEMBER, IS_NOT_MEMBER, ChatMemberUpdatedFilter
 from aiogram.types import ChatMemberUpdated
-from constants import CORRECT_ANSWER_PREFIX, WRONG_ANSWER_PREFIX, DICE_SEND_MSG, CORRECT_ANSWER_MSG, WRONG_USER_MSG, WRONG_ANSWER_MSG
+from constants import (CORRECT_ANSWER_PREFIX, WRONG_ANSWER_PREFIX, DICE_SEND_MSG,
+                       CORRECT_ANSWER_MSG, WRONG_USER_MSG, WRONG_ANSWER_MSG, BAN_TIMEOUT)
 from utils import get_callback_user_info, get_dice_keyboard, get_dice_value, set_permissions_to
 
 router = Router()
@@ -38,10 +40,15 @@ async def correct_answer_handler(callback: types.CallbackQuery, bot: Bot):
 
 @router.callback_query(F.data.startswith(WRONG_ANSWER_PREFIX))
 async def wrong_answer_handler(callback: types.CallbackQuery):
-    _, is_target_user, _ = get_callback_user_info(
+    user_id, is_target_user, chat_id = get_callback_user_info(
         callback=callback, prefix=WRONG_ANSWER_PREFIX)
 
     if is_target_user:
         await callback.answer(WRONG_ANSWER_MSG, show_alert=True)
+        await callback.bot.ban_chat_member(
+            chat_id=chat_id,
+            user_id=user_id,
+            until_date=time.time() + BAN_TIMEOUT)
+        await callback.message.delete()
     else:
         await callback.answer(WRONG_USER_MSG, show_alert=True)
