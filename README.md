@@ -1,5 +1,8 @@
 # Telegram captcha bot
-Еhe bot takes away permissions to write messages from new users, rolls a die and offers to choose value. If user chooses the wrong answer, he gets a ban for 30 seconds, if he chooses the right answer, he gets access to write messages in chat.
+
+<img width="399" alt="image" src="https://github.com/kvrvgixzis/telegram-dice-captcha/assets/34510611/3216d995-7697-4581-b09e-f86c9a91b8ed">
+
+Bot takes away permissions to write messages from new users, rolls a die and offers to choose value. If user chooses the wrong answer, he gets a ban for 30 seconds, if he chooses the right answer, he gets access to write messages in chat.
 
 # Installation
 
